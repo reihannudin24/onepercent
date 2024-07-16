@@ -1,7 +1,7 @@
 
 const express = require('express')
 const mongoose = require('./config/db');
-const routerUser = require('./routes/User');
+const routerUser = require('./routes/UserRoutes');
 
 const connectDB = async () => {
     try{
