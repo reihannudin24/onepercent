@@ -1,38 +1,357 @@
-.App {
-  text-align: center;
+
+
+*{
+    font-family: "Lexend", sans-serif;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.bg-primary-white{
+    background: #fefeff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.bg-primary{
+    background: #01101c;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.bg-primary-light{
+    background: #d5d5d5;
 }
 
-.App-link {
-  color: #61dafb;
+.bg-primary-hv{
+    background: #01101c;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.h-logo{
+    height: 20px;
+}
+
+.h-logo-2{
+    height: 20px;
+}
+
+.image{
+    height: 100%;
+    object-fit: fill;
+    width: 100%;
+}
+
+
+.image-cover{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.color-primary{
+    color:  #111c23;
+}
+
+.bg-secondary{
+    background: #2B2D31
+}
+
+.bg-secondary-new{
+    background: #161c26
+}
+
+.bg-third{
+    background: #313338;
+}
+
+.border-r-primary{
+    border-right: 1px solid #111c23;
+}
+.border-b-primary{
+    border-bottom: 1px solid #565657;
+}
+
+.glasses{
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(3, 17, 26, 0.3);
+    border: 2px solid rgba(5, 18, 35, 0.3);
+    background: rgba(30, 31, 34, 0.53);
+}
+
+.glasses-white{
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(241, 241, 241, 0.3);
+    border: 2px solid rgba(234, 234, 234, 0.3);
+    background: rgba(246, 242, 242, 0.53);
+}
+
+
+
+.glasses-2{
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(30, 30, 31, 0.53);
+    border: 2px solid rgba(13, 19, 24, 0.3);
+
+    background: rgba(30, 30, 31, 0.53);
+}
+
+
+.btn-primary{
+    background:  #01101c;
+    color: #d9d9d9;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 30px rgba(3, 17, 26, 0.3);
+
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(61, 99, 122, 0.55);
+}
+
+.btn-logo{
+    width:50px;
+    height:50px;
+    background: #5865F2;
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+
+.btn-icon{
+    width:35px;
+    height:35px;
+    background: #5865F2;
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+
+.btn-logo-2{
+    width:48px;
+    height:48px;
+    cursor: pointer;
+    background: #272934;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+.btn-logo-2:hover{
+    width:48px;
+    height:48px;
+    background: #171d31;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+.btn-logo-2-light{
+    width:48px;
+    height:48px;
+    cursor: pointer;
+    background: #ececf1;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+.btn-logo-2-light:hover{
+    width:48px;
+    height:48px;
+    background: #e7e6e6;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+/* styles.css or a CSS module */
+.transition-bg {
+    transition: background-color 0.2s ease;
+}
+
+
+.input-dark{
+    background: #0a0a0a;
+    color: #858585;
+    padding: 0.5rem 1rem;
+}
+
+.input-light{
+    background: #f3f2f2;
+    color: #0c0c0c;
+    padding: 0.5rem 1rem;
+}
+
+
+.w-96{
+    width: 96%;
+}
+
+
+.radius-btn-icon{
+    border-radius: 0.25rem 0.25rem 0.25rem 1rem;
+}
+
+
+.radius-btn-icon-r{
+    border-radius:0.25rem   0.25rem 1rem  0.25rem;
+}
+
+
+
+.bg-primary-ice{
+    background:#F3F7FF ;
+}
+
+.wh-icon{
+    width: 40px;
+    height: 40px;
+}
+
+
+
+.h-menu-banner{
+    height: 15px;
+}
+
+.btn-menu{
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.w-line{
+    width: 1px;
+}
+
+.w-100{
+    width: 400px;
+}
+
+.bg-gre-15{
+    background: #A5F09B;
+}
+
+.bg-gre-30{
+    background: #F0ED9B;
+}
+
+.bg-gre-50{
+    background: #FFB224;
+}
+
+.bg-gre-70{
+    background: #F09B9B;
+}
+
+.bg-gre-85{
+    background: #E01C1C;
+}
+
+.bg-chart{
+    background: #3CCF29;
+}
+
+.oneline-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Number of lines to show */
+    overflow: hidden;
+}
+
+.text-task{
+    color: #5865F2;
+}
+
+.text-schedule{
+    color: #ee3838;
+}
+
+.text-planning{
+    color: #f2d358;
+}
+
+
+.bg-hover-task{
+    background: #ffffff;
+}
+
+.bg-hover-schedule{
+    background: #ffffff;
+}
+
+.bg-hover-planning{
+    background: #ffffff;
+}
+
+.bg-hover-task:hover{
+    background: #eeefff;
+}
+
+.bg-hover-schedule:hover{
+    background: #f8e5e5;
+}
+
+.bg-hover-planning:hover{
+    background: #fffbee;
+}
+
+
+.h-logo{
+    width:  140px;
+    height: 140px;
+}
+
+.h-input{
+    height: 50px;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* Optional: You can add custom styles for focused input */
+.input-container:focus-visible {
+    border-color: #4A90E2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+
+.input-container {
+    transition: border-color 0.3s ease;
+}
+
+.input-container.focused {
+    border-color: #ffa81f;/* Change to your desired border color */
+}
+
+.line-h{
+    height: 1px;
+    padding-top: 1px;
+    background: #b4b4b4;
+}
+
+.h-auth-icon{
+    width: 24px;
+    height: 24px;
+}
+
+.text-15{
+    font-size: 15px;
+}
+
+.shadow-auth{
+    box-shadow: 1px 1px 1px 2px #e8e8e8;
+}
+
+.bg-auth-login {
+    position: absolute;
+    left: -0.75%;
+    top: 0;
+    width: 100vw; /* Use 100vw to cover the full viewport width */
+    height: 300px;
+    background-image: url("/public/assets/icon/backgorund-auth.svg");
+    background-repeat: no-repeat;
+    background-size: contain; /* Ensure the background image covers the container */
+}
+
+
+.h-500{
+    height: 370px;
 }
