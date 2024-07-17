@@ -38,7 +38,7 @@ export const SidebarComponent = ({lights}) => {
                         <div className={`w-full ${lights ? 'border-b-gray-300 border-b': 'border-b-primary'}`}>
                             <div className={"btn-logo my-4 mx-auto"}>
                                 <div className={"h-logo my-auto"}>
-                                    <img className={"image"} src={"assets/icon/dark/note-logo.svg"} />
+                                    <img className={"w-5 h-5 object-cover"} src={"assets/icon/dark/note-logo.svg"} />
                                 </div>
                             </div>
                         </div>

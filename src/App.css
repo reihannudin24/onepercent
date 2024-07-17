@@ -199,6 +199,11 @@
     background:#F3F7FF ;
 }
 
+.bg-primary-ice-dark{
+    background: #192031;
+}
+
+
 .wh-icon{
     width: 40px;
     height: 40px;
@@ -255,6 +260,14 @@
     overflow: hidden;
 }
 
+
+.text-white-truncate{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Number of lines to show */
+    overflow: hidden;
+}
+
 .text-task{
     color: #5865F2;
 }
@@ -291,6 +304,55 @@
 .bg-hover-planning:hover{
     background: #fffbee;
 }
+
+
+.bg-task{
+    background: #060270;
+}
+
+.bg-schedule{
+    background: #ff2929;
+
+}
+
+.bg-planning{
+    background: #f8b844;
+}
+.rounded-bar{
+    border-radius: 4px 4px 0 0;
+}
+
+
+
+.bg-hover-task-dark{
+    background: #091318;
+}
+
+.bg-hover-schedule-dark{
+    background: #091318;
+}
+
+.bg-hover-planning-dark{
+    background: #091318;
+}
+
+
+
+.bg-hover-task-dark:hover{
+    background: #131326;
+}
+
+.bg-hover-schedule-dark:hover{
+    background: #261315;
+}
+
+.bg-hover-planning-dark:hover{
+    background: #261f13;
+
+}
+
+
+
 
 
 .h-logo{
@@ -336,6 +398,10 @@ input:focus {
     font-size: 15px;
 }
 
+.w-time-item{
+    width: 5.666667%
+}
+
 .shadow-auth{
     box-shadow: 1px 1px 1px 2px #e8e8e8;
 }
@@ -355,3 +421,47 @@ input:focus {
 .h-500{
     height: 370px;
 }
+
+.h-card-banner{
+    height: 57vh;
+}
+
+
+.h-note{
+    height: 20vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
