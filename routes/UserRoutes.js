@@ -1,16 +1,25 @@
-const expres = require('express');
+const express = require('express');
 const router = express.Router();
 const User = require('../models/UserModel')
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
 require('dotenv').config();
+
+// NODE MAILER
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    auth: {
+        user: process.env.EMAIL_NODEMAILER,
+        pass: process.env.PASSWORD_NODEMAILER,
+    },
+});
 
 
 // Register a new user
 router.post('/register', async (req, res) => {
     try {
         const { username, firstname, lastname, email, contact, age, birthday, location, password } = req.body;
-        const user = await User.create({ username, firstname, lastname, email, contact, age, birthday, location, password });
+        await User.create({ username, firstname, lastname, email, contact, age, birthday, location, password });
         res.status(201).send('User registered successfully');
     } catch (error) {
         res.status(400).send(error.message);
@@ -28,6 +37,8 @@ router.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).send("Password is not the same");
 
         const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        User.updateRememberToken(user.id, token)
+
         res.status(200).json({ token });
     } catch (error) {
         res.status(400).send(error.message);
@@ -35,8 +46,18 @@ router.post('/login', async (req, res) => {
 });
 
 // User Logout
-router.post('/logout', (req, res) => {
-    res.status(200).send('Logout successful');
+router.post('/logout/:token', async (req, res) => {
+    try {
+        const { token } = req.params;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const user = await User.findById(decoded.userId);
+        if (!user) return res.status(400).send('User not found');
+        User.updateRememberToken(user.id, null)
+        res.status(200).send('Logout successful');
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
 });
 
 // Verify Email
@@ -46,19 +67,20 @@ router.post('/verify-email', async (req, res) => {
         const user = await User.findByEmail(email);
         if (!user) return res.status(400).send('User not found');
 
-        const resetToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1m' });
         const resetLink = `http://localhost:${process.env.PORT}/api/reset-password/${resetToken}`;
-
-        await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: user.email,
-            subject: 'Password Reset',
-            html: `<a href="${resetLink}">Reset your password</a>`,
+        const info = await transporter.sendMail({
+            from: `"TEST" <${process.env.EMAIL_NODEMAILER}>`, // sender address
+            to: "andrianpratama843@gmail.com", // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: "Hello world?", // plain text body
+            html: "<b>Hello world?</b>", // html body
         });
+        console.log(info)
 
         res.status(200).send('Password reset email sent');
     } catch (error) {
-        res.status(400).send(error.message);
+        res.status(400).send(error);
     }
 });
 
@@ -66,11 +88,14 @@ router.post('/verify-email', async (req, res) => {
 router.post('/reset-password/:token', async (req, res) => {
     try {
         const { token } = req.params;
-        const { newPassword } = req.body;
+        const { newPassword, password } = req.body;
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const user = await User.findById(decoded.id);
+        const user = await User.findById(decoded.userId);
         if (!user) return res.status(400).send('User not found');
+
+        const isMatch = await User.comparePassword(password, user.password);
+        if (!isMatch) return res.status(400).send("Password is not the same");
 
         await User.updatePassword(user.id, newPassword);
         res.status(200).send('Password reset successfully');
