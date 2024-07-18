@@ -1,5 +1,5 @@
 import './App.css';
-import {MainNavbarComponent, MiniNavbarComponent} from "./Component/Navbar.Component";
+import {MainNavbarComponent, MiniBarComponent, MiniNavbarComponent} from "./Component/Navbar.Component";
 import {SidebarComponent} from "./Component/Sidebar.Component";
 import {Route, Routes} from "react-router-dom";
 import Dashboard from "./Page/Dashboard";
@@ -31,10 +31,13 @@ function App() {
                   </div>
                   <div className={"w-full relative md:hidden block  "}>
                       <div className={"fixed z-50 w-full right-0 top-0"}>
-                          <MiniNavbarComponent />
+                          <MiniNavbarComponent lights={lights}/>
+                      </div>
+                      <div className={"fixed z-50 w-full right-0 top-0"}>
+                          <MiniBarComponent lights={lights}/>
                       </div>
                   </div>
-                  <div className={"w-96 ms-auto "}>
+                  <div className={"w-96 me-auto pb-16 md:me-0 md:ms-auto "}>
                       <Routes>
                           <Route path={"/"} element={<Dashboard light={lights} />} />
                           <Route path={"/schedule"} element={<Schedule light={lights} />} />

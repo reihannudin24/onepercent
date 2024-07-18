@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {ThemeButton} from "./Button.Component";
+import {SidebarButton} from "./Sidebar.Component";
 
 export const MainNavbarComponent = ({lights, setLights}) => {
 
@@ -88,10 +89,86 @@ export const MainNavbarComponent = ({lights, setLights}) => {
     )
 }
 
-export const MiniNavbarComponent = () => {
+export const MiniBarComponent =  ({lights}) => {
 
 
+    const data = [
+        {
+            'title' : 'Dashboard',
+            'url' : '/',
+            'icon' : 'icon-dashboard',
+        },
+        {
+            'title' : 'Task',
+            'url' : '/task',
+            'icon' : 'icon-task',
+        },
+        {
+            'title' : 'Planning',
+            'url' : '/planning',
+            'icon' : 'icon-planning',
+        },
+        {
+            'title' : 'Schedule',
+            'url' : '/schedule',
+            'icon' : 'icon-schedule',
+        },
+        {
+            'title' : 'Finance',
+            'url' : '/finance',
+            'icon' : 'icon-finance',
+        },
+    ]
 
+
+    return (
+        <section className={`w-11/12 mx-auto rounded-full ${lights ? 'glasses-white': 'bg-primary-glass'} z-10  fixed border-r-primary border-blue-950 bottom-5 right-0 left-0`}>
+            <div className={"w-full "}>
+                <div className={"w-11/12 mx-auto "}>
+                    <ul className={`w-full my-2  gap-2 flex flex-wrap`}>
+                        {data.map((item , index) => {
+                            return(
+                                <div className={"w-2/12 mx-auto"} id={index}>
+                                    <BarButton lights={lights} title={item?.title} url={item?.url} icon={item?.icon} />
+                                </div>
+                            )
+                        })}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+export const BarButton = ({title, url, icon, lights}) => {
+    return(
+        <>
+            <Link to={url}>
+                <li className="group my-0.5 w-full relative">
+                    <div className={`my-0.5 mx-auto  ${lights ? 'btn-logo-2-light-xl': 'btn-logo-2-xl '}`}>
+                        <div className=" -ms-1 -mt-1 h-logo-3">
+                            <img
+                                className="w-full object-cover h-full"
+                                src={`${lights ? `assets/icon/${icon}-blue.svg` : `assets/icon/${icon}.svg`}`}
+                                alt={`${title} Icon`}
+                            />
+                        </div>
+                    </div>
+                    <div className="hidden group-hover:block absolute -right-20 top-6 z-10">
+                        <div className={`w-full px-3 py-2  ${lights ? 'bg-blue-500': 'bg-gray-800'} radius-btn-icon`}>
+                            <div className="w-full text-white">
+                                <p className={""} style={{fontSize:"15px"}}>{title}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </Link>
+        </>
+    )
+}
+
+
+export const MiniNavbarComponent = ({lights}) => {
     return(
         <>
             <nav className={"w-full "}>
@@ -99,15 +176,24 @@ export const MiniNavbarComponent = () => {
                     <div className={" mx-auto flex"}>
                         <div className={"w-full flex "}>
                             <div className={"w-full glasses-2 h-full bg-third"}>
-                                <div className={"w-11/12 mx-auto flex justify-between border-b-primary"}>
-                                    <div className={""}>
-                                        <div className={"btn-logo my-3 mx-auto"}>
-                                            <div className={"h-logo my-auto"}>
-                                                <img className={"image"} src={"assets/icon/dark/note-logo.svg"} />
+                                <div className={"w-11/12 mx-auto h-full py-1 flex justify-between border-b-primary"}>
+                                    <div className={"relative h-full"}>
+                                        <div className={"bg-blue-600 rounded-xl py-3.5 px-3.5  my-2"}>
+                                            <div className={"h-6  w-6 "}>
+                                                <img className={"w-full h-full object-cover "} src={"assets/icon/dark/note-logo.svg"} />
                                             </div>
                                         </div>
                                     </div>
                                     <div className={""}>
+                                        <div className={"my-1 w-full"}>
+                                            <Link to={"/profile"}>
+                                                <div className={`${lights ? 'btn-logo-2-light': 'btn-logo-2-lg '}  p-5 my-1 mx-auto`}>
+                                                    <div className={"my-auto mx-auto"}>
+                                                        <h1 className={"text-xl my-auto text-blue-600"}>AR</h1>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -118,3 +204,5 @@ export const MiniNavbarComponent = () => {
         </>
     )
 }
+
+

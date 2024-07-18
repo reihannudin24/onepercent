@@ -69,6 +69,13 @@
     border-bottom: 1px solid #565657;
 }
 
+.bg-primary-glass{
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 30px rgba(3, 17, 26, 0.3);
+    border: 2px solid rgba(1, 10, 19, 0.3);
+    background: rgba(0, 4, 26, 0.83);
+}
+
 .glasses{
     backdrop-filter: blur(30px);
     box-shadow: 0px 0px 30px rgba(3, 17, 26, 0.3);
@@ -132,6 +139,7 @@
 }
 
 
+
 .btn-logo-2:hover{
     width:48px;
     height:48px;
@@ -140,6 +148,76 @@
     border-radius: 100%;
 }
 
+.h-logo-3{
+    width: 24px;
+    height: 24px;
+}
+
+
+.btn-logo-2-xl{
+    width:50px;
+    height:50px;
+    cursor: pointer;
+    background: #01092d;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+.btn-logo-2-xl:hover{
+    width:50px;
+    height:50px;
+    background: #000617;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+
+
+
+
+.btn-logo-2-lg{
+    width:60px;
+    height:60px;
+    cursor: pointer;
+    background: #272934;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+.btn-logo-2-lg:hover{
+    width:60px;
+    height:60px;
+    background: #171d31;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+
+.btn-logo-2-light-lg{
+    width:60px;
+    height:60px;
+    cursor: pointer;
+    background: #ececf1;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+.btn-logo-2-light-lg:hover{
+    width:60px;
+    height:60px;
+    background: #e7e6e6;
+    padding: 1rem;
+    border-radius: 100%;
+}
 
 
 .btn-logo-2-light{
@@ -178,10 +256,28 @@
     padding: 0.5rem 1rem;
 }
 
-
 .w-96{
-    width: 96%;
+    width: 100%;
 }
+
+
+
+.h-card-banner{
+    height: 30vh;
+}
+
+@media screen and (min-width: 768px) {
+    .w-96{
+        width: 96%;
+    }
+
+    .h-card-banner{
+        height: 57vh;
+    }
+
+
+}
+
 
 
 .radius-btn-icon{
@@ -209,6 +305,9 @@
     height: 40px;
 }
 
+.h-menu-banner-2{
+    height: 20px;
+}
 
 
 .h-menu-banner{
@@ -422,8 +521,9 @@ input:focus {
     height: 370px;
 }
 
-.h-card-banner{
-    height: 57vh;
+
+.mini-h-card-banner{
+    height: 40vh;
 }
 
 
@@ -431,9 +531,21 @@ input:focus {
     height: 20vh;
 }
 
+.bg-red-notes{
+    background: #ff9a9a;
+}
 
+.bg-yellow-notes{
+    background: #ffe09e;
+}
 
+.bg-blue-notes{
+    background: #b1b1ff;
+}
 
+.bg-green-notes{
+    background: #a5ffa5;
+}
 
 
 
