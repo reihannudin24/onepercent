@@ -13,7 +13,7 @@ import Login from "./Page/Auth/Login";
 
 function App() {
 
-  const alreadyLogin =  true;
+  const alreadyLogin =  false;
   const lcLights = localStorage.getItem('lights')
   const [lights, setLights] = useState(lcLights);
 

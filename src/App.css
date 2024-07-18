@@ -432,7 +432,22 @@ input:focus {
 }
 
 
+.glasses-container-bg{
+    background: url("/public/assets/icon/glass.png");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensure the background image covers the container */
+}
 
+.blob1{
+    background: url("/public/assets/icon/blob1.png");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensure the background image covers the container */
+}
+.blob2{
+    background: url("/public/assets/icon/blob2.png");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensure the background image covers the container */
+}
 
 
 
