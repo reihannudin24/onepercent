@@ -438,9 +438,10 @@ export const BannerStackPreview = ({width , title, description, percent, roundHo
 
 export const BannerTargetPreview = ({light, type}) =>{
     return(
-        <div className={` ${light ? `bg-hover-${type}` :  `bg-hover-${type}-dark` }  cursor-pointer rounded-full shadow py-2 px-5`}>
+        <div className={" bg-white h-note rounded-md py-1.5 border-r-2 border-r-blue-400 px-4"}>
             <div className={""}>
-                <h2 className={""}>A</h2>
+
+            <h2 className={""}>A</h2>
             </div>
             <div className={""}>
                 <p className={""}>blabla bla</p>
