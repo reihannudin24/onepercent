@@ -95,6 +95,49 @@ const Schedules = {
         });
     },
 
+    returnGet: async (FinancesData) => {
+        const { title, description, reminder, start_time, end_time, start_dates, end_dates } = FinancesData
+        let sql = 'SELECT * FROM schedules WHERE 1=1';
+        let params = [];
+
+        if (title) {
+            sql += ' AND title = ?';
+            params.push(title);
+        }
+        if (description) {
+            sql += ' AND description = ?';
+            params.push(description);
+        }
+        if (reminder) {
+            sql += ' AND reminder = ?';
+            params.push(reminder);
+        }
+        if (start_time) {
+            sql += ' AND start_time = ?';
+            params.push(start_time);
+        }
+        if (end_time) {
+            sql += ' AND end_time = ?';
+            params.push(end_time);
+        }
+        if (start_dates) {
+            sql += ' AND start_dates = ?';
+            params.push(start_dates);
+        }
+        if (end_dates) {
+            sql += ' AND end_dates = ?';
+            params.push(end_dates);
+        }
+
+        return new Promise((resolve, reject) => {
+            db.query(sql, params, (err, result) => {
+                if (params.length === 0) resolve([])
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
 
 }
 

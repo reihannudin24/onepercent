@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
         const isMatch = await User.comparePassword(password, user.password);
         if (!isMatch) return res.status(400).send("Password is not the same");
 
-        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1m' });
         User.updateRememberToken(user.id, token)
 
         res.status(200).json({ token });
@@ -69,12 +69,13 @@ router.post('/verify-email', async (req, res) => {
 
         const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1m' });
         const resetLink = `http://localhost:${process.env.PORT}/api/reset-password/${resetToken}`;
+        console.log("tes")
         const info = await transporter.sendMail({
-            from: `"TEST" <${process.env.EMAIL_NODEMAILER}>`, // sender address
-            to: "andrianpratama843@gmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
+            from: `"TEST" <${process.env.EMAIL_NODEMAILER}>`, 
+            to: "andrianpratama843@gmail.com", 
+            subject: "Hello ✔",
+            text: "Hello world?", 
+            html: "<b>Hello world?</b>", 
         });
         console.log(info)
 

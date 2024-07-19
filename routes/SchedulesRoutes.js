@@ -91,4 +91,14 @@ router.post('/schedule-options/remove/:token', async (req, res) => {
     }
 })
 
+
+router.get('/schedule/return', async (req, res) => {
+    try {
+        const get = await Schedules.returnGet(req.query)
+        res.status(200).json(get);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+})
+
 module.exports = router;
