@@ -59,6 +59,43 @@ const Schedules = {
         });
     },
 
+    createOption: async (FinancesData) => {
+        const { title, description, user_id, schedule_id } = FinancesData;
+
+        const sql = 'insert into options_schedules (title, description, user_id, schedule_id) values (? , ? , ? , ?)';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [title, description, user_id, schedule_id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
+    removeOption: async (FinancesData) => {
+        const { id } = FinancesData;
+
+        const sql = 'DELETE FROM options_schedules WHERE id = ?';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
+    updateOption: async (FinancesData) => {
+        const { id, title, description } = FinancesData;
+
+        const sql = 'UPDATE options_schedules SET title=?, description=? WHERE id=?';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [title, description, id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
+
 }
 
 

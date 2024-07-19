@@ -5,6 +5,7 @@ const routerSchedules = require('./routes/SchedulesRoutes');
 const { connectToWhatsApp } = require('./botWa');
 const connectToTelegram = require('./botTele');
 const Schedules = require('./models/SchedulesModel');
+const User = require('./models/UserModel');
 
 
 const app = express();
@@ -14,9 +15,9 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 let whatsappBot;
-// connectToWhatsApp().then(res => {
-//     whatsappBot = res
-// })
+connectToWhatsApp().then(res => {
+    whatsappBot = res
+})
 
 let telegramBot;
 connectToTelegram().then(res => {
@@ -25,6 +26,7 @@ connectToTelegram().then(res => {
 
 app.use((req, res, next) => {
     req.whatsappBot = whatsappBot
+    req.telegramBot = telegramBot
     next()
 })
 
@@ -40,7 +42,9 @@ function SelisihRemidner(end_date, end_time) {
     let day = String(dateEnd.getDate()).padStart(2, '0');
 
     let startDateObj = new Date(`${date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + date.getDate()}T${date.getHours() + ":" + String(date.getMinutes()).padStart(2, '0') + ":" + String(date.getSeconds()).padStart(2, '0')}`);
+    // console.log(`${date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + date.getDate()}T${date.getHours() + ":" + String(date.getMinutes()).padStart(2, '0') + ":" + String(date.getSeconds()).padStart(2, '0')}`)
     let endDateObj = new Date(`${year}-${month}-${day}T${end_time}`);
+    // console.log(`${year}-${month}-${day}T${end_time}`)
 
     let difference = startDateObj.getTime() - endDateObj.getTime();
 
@@ -69,28 +73,26 @@ function SelisihRemidner(end_date, end_time) {
 
 Schedules.return().then(async (res) => {
     function updateAndDisplay() {
-        res.forEach(item => {
-
-            if (item.status === "Belum mulai") {
+        res.forEach(async item => {
+            const user = await User.findById(item.user_id)
+            if (item.status === "belum_mulai") {
                 let selisih = SelisihRemidner(item.start_dates, item.start_time);
                 if (selisih.seconds > 1) {
-                    try {
-                        whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
-                        Schedules.updateStatus("SedangMengerjakan", item.id)
-                    } catch (error) {
-                        console.log(error)
-                    }
+                    whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: `Haii ${user.username} ${item.title} Kamu telah dimulai` })
+                    Schedules.updateStatus("sedang_berlangsung", item.id)
+                    item.status = "sedang_berlangsung"
                 }
                 return
             }
 
             let selisih = SelisihRemidner(item.end_dates, item.end_time);
             if (selisih.seconds > 1) {
-                if (item.status !== "Selesai dikerjakan") {
+                if (item.status !== "selesai") {
                     if (whatsappBot) {
                         try {
-                            whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
-                            Schedules.updateStatus("Selesai dikerjakan", item.id)
+                            whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: `Haii ${user.username} ${item.title} Kamu telah selesai` })
+                            Schedules.updateStatus("selesai", item.id)
+                            item.status = "selesai"
                         } catch (error) {
                             console.log(error)
                         }
