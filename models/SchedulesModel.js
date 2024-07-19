@@ -48,6 +48,17 @@ const Schedules = {
         });
     },
 
+    updateStatus: async (status, id) => {
+
+        const sql = 'UPDATE schedules SET status=? WHERE id=?';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [status, id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
 }
 
 

@@ -2,7 +2,8 @@
 const express = require('express')
 const routerUser = require('./routes/UserRoutes');
 const routerSchedules = require('./routes/SchedulesRoutes');
-const { connectToWhatsApp } = require('./bot');
+const { connectToWhatsApp } = require('./botWa');
+const connectToTelegram = require('./botTele');
 const Schedules = require('./models/SchedulesModel');
 
 
@@ -17,6 +18,11 @@ let whatsappBot;
 //     whatsappBot = res
 // })
 
+let telegramBot;
+connectToTelegram().then(res => {
+    telegramBot = res
+})
+
 app.use((req, res, next) => {
     req.whatsappBot = whatsappBot
     next()
@@ -25,16 +31,17 @@ app.use((req, res, next) => {
 app.use('/api/v1/users/', routerUser);
 app.use('/api/v1/schedules/', routerSchedules);
 
-let data = [
-    // { start_date: '2024-07-18', start_time: '07:00:00', end_date: '2024-07-18', end_time: '13:17:00' },
-    // { start_date: '2024-07-18', start_time: '09:00:00', end_date: '2024-07-18', end_time: '10:30:00' }
-];
-
 function SelisihRemidner(end_date, end_time) {
     let date = new Date();
+
+    let dateEnd = new Date(end_date);
+    let year = dateEnd.getFullYear();
+    let month = String(dateEnd.getMonth() + 1).padStart(2, '0');
+    let day = String(dateEnd.getDate()).padStart(2, '0');
+
     let startDateObj = new Date(`${date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, '0') + "-" + date.getDate()}T${date.getHours() + ":" + String(date.getMinutes()).padStart(2, '0') + ":" + String(date.getSeconds()).padStart(2, '0')}`);
-    let endDateObj = new Date(`${end_date}T${end_time}`);
-    console.log(`${end_date}T${end_time}`)
+    let endDateObj = new Date(`${year}-${month}-${day}T${end_time}`);
+
     let difference = startDateObj.getTime() - endDateObj.getTime();
 
 
@@ -43,10 +50,13 @@ function SelisihRemidner(end_date, end_time) {
     let millisecondsPerMinute = 1000 * 60;
     let millisecondsPerSecond = 1000;
 
+
     let days = Math.floor(difference / millisecondsPerDay);
+    if (-1 > -453000) days += 1
     difference = difference % millisecondsPerDay;
 
     let hours = Math.floor(difference / millisecondsPerHour);
+    if (-1 > -453000) hours += 1
     difference = difference % millisecondsPerHour;
 
     let minutes = Math.floor(difference / millisecondsPerMinute);
@@ -60,13 +70,24 @@ function SelisihRemidner(end_date, end_time) {
 Schedules.return().then(async (res) => {
     function updateAndDisplay() {
         res.forEach(item => {
+
+            if (item.status === "Belum mulai") {
+                let selisih = SelisihRemidner(item.start_dates, item.start_time);
+                if (selisih.seconds > 1) {
+                    whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
+                    Schedules.updateStatus("SedangMengerjakan", item.id)
+                }
+                return
+            }
+
             let selisih = SelisihRemidner(item.end_dates, item.end_time);
-            console.log(selisih)
-            if (selisih.days > 1 && selisih.hours > 1 && selisih.minutes > 1 && selisih.seconds > 1) {
-                console.log(`Selisih waktu untuk data: ${JSON.stringify(item)} adalah: ${selisih.hours} jam ${selisih.minutes} menit ${selisih.seconds} detik`);
-                // if (whatsappBot) {
-                //     whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Hello there!' })
-                // }
+            if (selisih.seconds > 1) {
+                if (item.status !== "Selesai dikerjakan") {
+                    if (whatsappBot) {
+                        whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
+                        Schedules.updateStatus("Selesai dikerjakan", item.id)
+                    }
+                }
             }
         });
     }
