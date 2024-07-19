@@ -52,11 +52,11 @@ function SelisihRemidner(end_date, end_time) {
 
 
     let days = Math.floor(difference / millisecondsPerDay);
-    if (-1 > -453000) days += 1
+    if (-1 > difference) days += 1
     difference = difference % millisecondsPerDay;
 
     let hours = Math.floor(difference / millisecondsPerHour);
-    if (-1 > -453000) hours += 1
+    if (-1 > difference) hours += 1
     difference = difference % millisecondsPerHour;
 
     let minutes = Math.floor(difference / millisecondsPerMinute);
@@ -74,8 +74,12 @@ Schedules.return().then(async (res) => {
             if (item.status === "Belum mulai") {
                 let selisih = SelisihRemidner(item.start_dates, item.start_time);
                 if (selisih.seconds > 1) {
-                    whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
-                    Schedules.updateStatus("SedangMengerjakan", item.id)
+                    try {
+                        whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
+                        Schedules.updateStatus("SedangMengerjakan", item.id)
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
                 return
             }
@@ -84,8 +88,12 @@ Schedules.return().then(async (res) => {
             if (selisih.seconds > 1) {
                 if (item.status !== "Selesai dikerjakan") {
                     if (whatsappBot) {
-                        whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
-                        Schedules.updateStatus("Selesai dikerjakan", item.id)
+                        try {
+                            whatsappBot.sendMessage("6282123928824@s.whatsapp.net", { text: 'Selesai Ler' })
+                            Schedules.updateStatus("Selesai dikerjakan", item.id)
+                        } catch (error) {
+                            console.log(error)
+                        }
                     }
                 }
             }
