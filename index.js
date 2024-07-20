@@ -1,17 +1,18 @@
 
 const express = require('express')
-const routerUser = require('./routes/UserRoutes');
-const routerSchedules = require('./routes/SchedulesRoutes');
-const { connectToWhatsApp } = require('./botWa');
+const connectToWhatsApp = require('./botWa');
 const connectToTelegram = require('./botTele');
+
 const Schedules = require('./models/SchedulesModel');
 const User = require('./models/UserModel');
 
+const routerUser = require('./routes/UserRoutes');
+const routerSchedules = require('./routes/SchedulesRoutes');
+const routerFinances = require('./routes/FinancesRoutes');
+
 
 const app = express();
-
 app.use(express.json());
-
 const PORT = process.env.PORT || 3000;
 
 let whatsappBot;
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/users/', routerUser);
 app.use('/api/v1/schedules/', routerSchedules);
+app.use('/api/v1/finances/', routerFinances);
 
 function SelisihRemidner(end_date, end_time) {
     let date = new Date();

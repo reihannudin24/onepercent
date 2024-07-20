@@ -36,4 +36,4 @@ async function connectToWhatsApp() {
     return onepercent
 }
 
-module.exports = { connectToWhatsApp }
+module.exports = connectToWhatsApp 

@@ -1,8 +1,8 @@
 const db = require('../config/db.js');
 
 const Schedules = {
-    create: async (FinancesData) => {
-        const { title, description, category, reminder, start_time, end_time, start_dates, end_dates, type, status, user_id } = FinancesData;
+    create: async (SchedulesData) => {
+        const { title, description, category, reminder, start_time, end_time, start_dates, end_dates, type, status, user_id } = SchedulesData;
 
         const sql = 'insert into schedules (title, description, category, reminder, start_time, end_time, start_dates, end_dates, type, status, user_id) values (? , ? , ? , ? , ?, ?, ?, ?, ?, ?, ?)';
         return new Promise((resolve, reject) => {
@@ -13,8 +13,8 @@ const Schedules = {
         });
     },
 
-    remove: async (FinancesData) => {
-        const { id } = FinancesData;
+    remove: async (SchedulesData) => {
+        const { id } = SchedulesData;
 
         const sql = 'DELETE FROM schedules WHERE id = ?';
         return new Promise((resolve, reject) => {
@@ -25,8 +25,8 @@ const Schedules = {
         });
     },
 
-    update: async (FinancesData) => {
-        const { id, title, description, reminder, start_time, end_time, start_dates, end_dates } = FinancesData;
+    update: async (SchedulesData) => {
+        const { id, title, description, reminder, start_time, end_time, start_dates, end_dates } = SchedulesData;
 
         const sql = 'UPDATE schedules SET title=?, description=?, reminder=?, start_time=?, end_time=?, start_dates=?, end_dates=? WHERE id=?';
         return new Promise((resolve, reject) => {
@@ -59,8 +59,8 @@ const Schedules = {
         });
     },
 
-    createOption: async (FinancesData) => {
-        const { title, description, user_id, schedule_id } = FinancesData;
+    createOption: async (SchedulesData) => {
+        const { title, description, user_id, schedule_id } = SchedulesData;
 
         const sql = 'insert into options_schedules (title, description, user_id, schedule_id) values (? , ? , ? , ?)';
         return new Promise((resolve, reject) => {
@@ -71,8 +71,8 @@ const Schedules = {
         });
     },
 
-    removeOption: async (FinancesData) => {
-        const { id } = FinancesData;
+    removeOption: async (SchedulesData) => {
+        const { id } = SchedulesData;
 
         const sql = 'DELETE FROM options_schedules WHERE id = ?';
         return new Promise((resolve, reject) => {
@@ -83,8 +83,8 @@ const Schedules = {
         });
     },
 
-    updateOption: async (FinancesData) => {
-        const { id, title, description } = FinancesData;
+    updateOption: async (SchedulesData) => {
+        const { id, title, description } = SchedulesData;
 
         const sql = 'UPDATE options_schedules SET title=?, description=? WHERE id=?';
         return new Promise((resolve, reject) => {
@@ -95,8 +95,8 @@ const Schedules = {
         });
     },
 
-    returnGet: async (FinancesData) => {
-        const { title, description, reminder, start_time, end_time, start_dates, end_dates } = FinancesData
+    returnGet: async (SchedulesData) => {
+        const { title, description, reminder, start_time, end_time, start_dates, end_dates } = SchedulesData
         let sql = 'SELECT * FROM schedules WHERE 1=1';
         let params = [];
 

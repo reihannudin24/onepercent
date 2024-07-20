@@ -2,18 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/UserModel')
 const jwt = require('jsonwebtoken');
-const nodemailer = require("nodemailer");
+const Function = require('../models/function');
 require('dotenv').config();
-
-// NODE MAILER
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    auth: {
-        user: process.env.EMAIL_NODEMAILER,
-        pass: process.env.PASSWORD_NODEMAILER,
-    },
-});
-
 
 // Register a new user
 router.post('/register', async (req, res) => {
@@ -66,18 +56,13 @@ router.post('/verify-email', async (req, res) => {
         const { email } = req.body;
         const user = await User.findByEmail(email);
         if (!user) return res.status(400).send('User not found');
+        const randomCode = Function.randomCode(6)
+        const htmlText = `<b>Hi ${user.username}!</b>
+        <p>You are Change Password. Your verification code is: ${randomCode}.</p>
+        <p>Please complete the account verification process in 30 minutes.</p>
+        <b>One Percent</b>`
 
-        const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1m' });
-        const resetLink = `http://localhost:${process.env.PORT}/api/reset-password/${resetToken}`;
-        console.log("tes")
-        const info = await transporter.sendMail({
-            from: `"TEST" <${process.env.EMAIL_NODEMAILER}>`, 
-            to: "andrianpratama843@gmail.com", 
-            subject: "Hello ✔",
-            text: "Hello world?", 
-            html: "<b>Hello world?</b>", 
-        });
-        console.log(info)
+        Function.sendEmail(email, `${randomCode} is your One Percent verification code`, "", htmlText)
 
         res.status(200).send('Password reset email sent');
     } catch (error) {
