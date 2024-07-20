@@ -260,6 +260,31 @@ const schedule = [
     }
 ];
 
+const mainDashboard =[
+    {
+        'id' :1,
+        'title' : "Schedule",
+        'icon' : "schedule.svg",
+        'quantity' : "10",
+    },{
+        'id' :2,
+        'title' : "Planning",
+        'icon' : "planning.svg",
+        'quantity' : "10",
+    },
+    {
+        'id' :3,
+        'title' : "Financial",
+        'icon' : "finance.svg",
+        'quantity' : "10",
+    },
+    {
+        'id' :4,
+        'title' : "Notes",
+        'icon' : "note.svg",
+        'quantity' : "10",
+    },
+];
 
 const taskAll = [
     {
@@ -298,6 +323,6 @@ const taskAll = [
 
 
 module.exports = {
-    chartFinance, dashboardTask, notes, target, schedule, taskAll
+    chartFinance, dashboardTask, notes, target, schedule, taskAll, mainDashboard
 }
 

@@ -125,7 +125,7 @@ export const MiniBarComponent =  ({lights}) => {
         <section className={`w-11/12 mx-auto rounded-full ${lights ? 'glasses-white': 'bg-primary-glass'} z-10  fixed border-r-primary border-blue-950 bottom-5 right-0 left-0`}>
             <div className={"w-full "}>
                 <div className={"w-11/12 mx-auto "}>
-                    <ul className={`w-full my-2  gap-2 flex flex-wrap`}>
+                    <ul className={`w-full my-1  gap-2 flex flex-wrap`}>
                         {data.map((item , index) => {
                             return(
                                 <div className={"w-2/12 mx-auto"} id={index}>
@@ -178,11 +178,9 @@ export const MiniNavbarComponent = ({lights}) => {
                             <div className={`w-full ${lights ? 'glasses-white' : 'glasses-2'} h-full bg-third`}>
                                 <div className={`w-11/12 mx-auto h-full py-1 flex justify-between  ${lights ? 'border-b-gray-50' : ' border-b-primary'}`}>
                                     <div className={"relative h-full"}>
-                                        <div className={"bg-blue-600 rounded-xl py-3 px-3  my-2"}>
-                                            <div className={"h-5  w-5 "}>
-                                                <img className={"w-full h-full object-cover "} src={"assets/icon/dark/note-logo.svg"} />
+                                            <div className={"h-logo-navbar mt-1.5"}>
+                                                <img className={"w-full h-full my-auto object-cover "} src={"assets/icon/mini-logo.svg"} />
                                             </div>
-                                        </div>
                                     </div>
                                     <div className={""}>
                                         <div className={"my-1 w-full"}>

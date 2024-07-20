@@ -13,6 +13,8 @@ import AddNewSchedule from "./Page/AddNewSchedule";
 
 function App() {
 
+  const color = 'blue';
+
   const alreadyLogin =  true;
   const lcLights = localStorage.getItem('lights')
   const [lights, setLights] = useState(lcLights);
@@ -39,12 +41,12 @@ function App() {
                   </div>
                   <div className={"w-96 me-auto pb-16 md:me-0 md:ms-auto "}>
                       <Routes>
-                          <Route path={"/"} element={<Dashboard light={lights} />} />
-                          <Route path={"/schedule"} element={<Schedule light={lights} />} />
-                          <Route path={"/create/new/schedule"} element={<AddNewSchedule light={lights} />} />
-                          <Route path={"/task"} element={<Task light={lights} />} />
-                          <Route path={"/finance"} element={<Finance light={lights}/>} />
-                          <Route path={"/profile"} element={<Profile />} />
+                          <Route path={"/"} element={<Dashboard color={color} light={lights} />} />
+                          <Route path={"/schedule"} element={<Schedule color={color} light={lights} />} />
+                          <Route path={"/create/new/schedule"} element={<AddNewSchedule color={color} light={lights} />} />
+                          <Route path={"/task"} element={<Task color={color} light={lights} />} />
+                          <Route path={"/finance"} element={<Finance color={color}  light={lights}/>} />
+                          <Route path={"/profile"} element={<Profile color={color}  />} />
                       </Routes>
                   </div>
               </div>

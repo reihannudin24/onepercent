@@ -199,9 +199,73 @@
 
 
 
+.btn-logo-3-light-xl{
+    width:50px;
+    height:50px;
+    cursor: pointer;
+    background: #0059e5;
+    padding: 1rem;
+    border-radius: 100%;
+}
 
 
 
+.btn-logo-3-light-xl:hover{
+    width:50px;
+    height:50px;
+    background: #004ac0;
+    padding: 1rem;
+    border-radius: 100%;
+}
+
+
+
+.bg-primary-1{
+    background: #7A72ED;
+}
+
+.bg-primary-2{
+    background: #2CB1D0;
+}
+
+.bg-primary-3{
+    background: #F5A03E;
+}
+
+.bg-primary-4{
+    background: #F95184;
+}
+
+
+.h-icon-rounded{
+    width: 35px;
+    height: 35px;
+   background: white;
+    border-radius: 100%;
+}
+
+.h-icon-rounded-i{
+    width: 22px;
+    height: 22px;
+}
+
+.h-icon-spend{
+    width: 30px;
+    height: 30px;
+}
+
+
+.line-qty{
+    background: #dcdcdc;
+    height: 1px;
+    margin: auto 0;
+    width: 70%;
+}
+
+.h-img-arrow{
+    width: 20px;
+    height: 20px;
+}
 
 
 .btn-logo-2-light{
@@ -660,6 +724,25 @@ input:focus {
     background: #a5ffa5;
 }
 
+
+.bg-red-notes-dark{
+    background: #f66d6d;
+}
+
+.bg-yellow-notes-dark{
+    background: #f3c766;
+}
+
+.bg-blue-notes-dark{
+    background: #7878f5;
+}
+
+.bg-green-notes-dark{
+    background: #68f568;
+}
+
+
+
 .round-schedule{
     border-radius: 8px 20px 8px 20px;
 }
@@ -945,6 +1028,10 @@ html {
 }
 
 
+.h-logo-navbar{
+    width: 100%;
+    height: 45px;
+}
 
 
 

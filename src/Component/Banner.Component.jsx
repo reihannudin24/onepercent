@@ -89,10 +89,10 @@ export const BannerTargetPreview = ({light , type , title , description }) => {
     )
 }
 
-export const BannerNotePreview = ({color , title, content, mode,date}) =>{
+export const BannerNotePreview = ({color , light, title, content, mode,date}) =>{
 
     return(
-        <div className={` bg-${color}-notes mx-auto h-note rounded-md py-1.5 border-r-2 border-r-${color}-400 px-4`} style={{width:"96%"}}>
+        <div className={` ${light ? `bg-${color}-notes` : `bg-${color}-notes-dark`}  mx-auto h-note rounded-md py-1.5 border-r-2 border-r-${color}-400 px-4`} style={{width:"96%"}}>
             <div className={"relative  w-full"}>
                 <div className={"w-full my-1"}>
                     <div className={"pb-2 "}>
