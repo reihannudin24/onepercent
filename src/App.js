@@ -6,7 +6,6 @@ import Dashboard from "./Page/Dashboard";
 import Profile from "./Page/Profile";
 import Finance from "./Page/Finance";
 import Task from "./Page/Task";
-import Planning from "./Page/Planning";
 import Schedule from "./Page/Schedule";
 import {useState} from "react";
 import Login from "./Page/Auth/Login";
@@ -43,9 +42,8 @@ function App() {
                           <Route path={"/"} element={<Dashboard light={lights} />} />
                           <Route path={"/schedule"} element={<Schedule light={lights} />} />
                           <Route path={"/create/new/schedule"} element={<AddNewSchedule light={lights} />} />
-                          <Route path={"/planning"} element={<Planning />} />
-                          <Route path={"/task"} element={<Task />} />
-                          <Route path={"/finance"} element={<Finance />} />
+                          <Route path={"/task"} element={<Task light={lights} />} />
+                          <Route path={"/finance"} element={<Finance light={lights}/>} />
                           <Route path={"/profile"} element={<Profile />} />
                       </Routes>
                   </div>

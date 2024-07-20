@@ -260,7 +260,44 @@ const schedule = [
     }
 ];
 
+
+const taskAll = [
+    {
+        'id': 1,
+        'title': 'Belajar Website',
+        'category': 'task',
+        'task' : [
+            {
+                'id' : 1,
+                'title' : 'Belajar HTML',
+                'status': 'selesai',
+                'task_id' : 1
+            } ,
+            {
+                'id' : 2,
+                'title' : 'Belajar CSS',
+                'status': 'selesai',
+                'task_id' : 1
+            } ,
+            {
+                'id' : 3,
+                'title' : 'Belajar JS',
+                'status': 'selesai',
+                'task_id' : 1
+            } ,
+        ],
+        'percent' : 'task',
+        'reminder': 'wa/alarm',
+        'status': 'selesai',
+        'color': 'red',
+        'dates': '2024-07-17',     // Assuming a date field
+        'type': 'task',            // Assuming a type field based on the example
+        'user_id': 1
+    }
+];
+
+
 module.exports = {
-    chartFinance, dashboardTask, notes, target, schedule
+    chartFinance, dashboardTask, notes, target, schedule, taskAll
 }
 
