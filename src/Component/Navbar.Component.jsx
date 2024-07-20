@@ -175,11 +175,11 @@ export const MiniNavbarComponent = ({lights}) => {
                 <header className={"mx-auto block "}>
                     <div className={" mx-auto flex"}>
                         <div className={"w-full flex "}>
-                            <div className={"w-full glasses-2 h-full bg-third"}>
-                                <div className={"w-11/12 mx-auto h-full py-1 flex justify-between border-b-primary"}>
+                            <div className={`w-full ${lights ? 'glasses-white' : 'glasses-2'} h-full bg-third`}>
+                                <div className={`w-11/12 mx-auto h-full py-1 flex justify-between  ${lights ? 'border-b-gray-50' : ' border-b-primary'}`}>
                                     <div className={"relative h-full"}>
-                                        <div className={"bg-blue-600 rounded-xl py-3.5 px-3.5  my-2"}>
-                                            <div className={"h-6  w-6 "}>
+                                        <div className={"bg-blue-600 rounded-xl py-3 px-3  my-2"}>
+                                            <div className={"h-5  w-5 "}>
                                                 <img className={"w-full h-full object-cover "} src={"assets/icon/dark/note-logo.svg"} />
                                             </div>
                                         </div>
@@ -187,9 +187,9 @@ export const MiniNavbarComponent = ({lights}) => {
                                     <div className={""}>
                                         <div className={"my-1 w-full"}>
                                             <Link to={"/profile"}>
-                                                <div className={`${lights ? 'btn-logo-2-light': 'btn-logo-2-lg '}  p-5 my-1 mx-auto`}>
-                                                    <div className={"my-auto mx-auto"}>
-                                                        <h1 className={"text-xl my-auto text-blue-600"}>AR</h1>
+                                                <div className={`${lights ? 'btn-logo-2-light-lg': 'btn-logo-2-lg'}  p-5 my-1 mx-auto`}>
+                                                    <div className={"my-auto h-full w-full mx-auto"}>
+                                                        <h1 className={"text-xl -ms-1.5 -mt-1 my-auto text-blue-600"}>AR</h1>
                                                     </div>
                                                 </div>
                                             </Link>

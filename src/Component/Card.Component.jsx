@@ -36,3 +36,50 @@ export const ScheduleCardComponent = () => {
         </>
     )
 }
+
+
+export const CardSchedule = ({ light, color, title, startTime, endTime, date }) => {
+    return (
+        <div className={`bg-${color}-schedule relative px-4 py-4 round-schedule`}>
+            <div className={`motif-rounded-${color}`}></div>
+            <div className={"w-full relative z-10"}>
+                <div className={"w-full flex"}>
+                    <div className={"my-auto"}>
+                        <h1 className={"text-white  font-semibold text-md"}>{title}</h1>
+                    </div>
+                </div>
+                <div className={"w-full relative"}>
+                    <div className={"flex w-full justify-between"}>
+                        <div className={"w-full mt-3 block justify-between"}>
+                            <div>
+                                <p className={"text-white font-light text-xs"}>{date}</p>
+                            </div>
+                            <div>
+                                <h1 className={"text-white font-medium text-xs"}>{startTime} - {endTime}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export const CardCalendar = ({date, month, years}) => {
+
+    return(
+        <div className={"w-11/12 mb-2 mx-auto md:w-full px-2 py-2 border border-gray-50 rounded-md bg-gray-50 hover:bg-blue-50 cursor-pointer"}>
+            <div className={""}>
+                <div className={"text-center"}>
+                    <h1 className={"text-2xl font-semibold text-blue-600 "}>{date}</h1>
+                    <div className={""}>
+                        <div className={""}>
+                            <p className={"text-sm text-gray-500"}>{month}</p>
+                            <p className={"text-xs text-gray-400"}>{years}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

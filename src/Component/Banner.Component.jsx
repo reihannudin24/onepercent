@@ -43,13 +43,13 @@ export const BannerStackPreview = ({width , title, description, percent, roundHo
 
 
     return(
-        <div className={` absolute bg-${type} rounded-md gap-6 py-4 px-5 md:py-2 md:px-2`} style={{width: `${width} `}}>
-            <div className={"block"}>
-                <div className={"w-full flex justify-between"}>
+        <div className={` absolute ${light ? `bg-${type}` : `bg-${type}-dark` } bg-${type}  rounded-full md:rounded-md gap-6 py-2 px-5 md:py-2 md:px-2`} style={{width: `${width} `}}>
+            <div className={"block "}>
+                <div className={"w-11/12 md:w-full mx-auto flex justify-between"}>
                     <div className={"flex w-10/12"}>
                         <div className={""}>
                             <div className={"text-left"}>
-                                <h2 className={`flex flex-wrap text-white text-md md:text-sm`}>
+                                <h2 className={`flex flex-wrap text-white text-sm md:text-sm`}>
                                     {truncate20(title)}
                                 </h2>
                             </div>
@@ -59,7 +59,7 @@ export const BannerStackPreview = ({width , title, description, percent, roundHo
                         <h1 className={`text-white  ${light} my-auto font-medium`}>{Math.round(percent)}%</h1>
                     </div>
                 </div>
-                <div className={"w-full flex justify-between"}>
+                <div className={"w-11/12 md:w-full mx-auto flex justify-between"}>
                     <div className={"my-auto"}>
                         <p className={`text-xs text-white my-auto`}>{roundHour} MIN</p>
                     </div>
@@ -79,10 +79,10 @@ export const BannerTargetPreview = ({light , type , title , description }) => {
         <div className={` ${light ? `bg-hover-task` :  `bg-hover-task-dark` }  cursor-pointer border-l-4 border-l-blue-300 rounded-md  shadow py-3 md:py-2 px-2`}>
            <div className={"w-11/12 mx-auto"}>
                <div className={""}>
-                   <h2 className={`text-md font-medium ${light ? 'text-gray-900 oneline-truncate' : 'text-white oneline-truncate'}`}>{title}</h2>
+                   <h2 className={`text-md md:text-md font-medium ${light ? 'text-gray-900 oneline-truncate' : 'text-white oneline-truncate'}`}>{title}</h2>
                </div>
                <div className={"my-0"}>
-                   <p className={`text-sm  ${light ? 'text-gray-600 oneline-truncate' : 'text-white oneline-truncate'}`}>{description}</p>
+                   <p className={`text-sm font-light md:text-sm  ${light ? 'text-gray-600 oneline-truncate' : 'text-white oneline-truncate'}`}>{description}</p>
                </div>
            </div>
         </div>
@@ -96,13 +96,13 @@ export const BannerNotePreview = ({color , title, content, mode,date}) =>{
             <div className={"relative  w-full"}>
                 <div className={"w-full my-1"}>
                     <div className={"pb-2 "}>
-                        <h2 className={"text-lg  text-gray-700 font-semibold"}>{title}</h2>
+                        <h2 className={"text-xl md:text-lg  text-gray-700 font-semibold"}>{title}</h2>
                         <div className={""}>
                             <p className={`text-xs text-gray-500 text-mode-${mode}`}>{date}</p>
                         </div>
                     </div>
                     <div className={"my-1"}>
-                        <p className={"text-md text-gray-600 oneline-truncate font-normal"}>{content}</p>
+                        <p className={"text-sm md:text-md text-gray-600 oneline-truncate font-normal"}>{content}</p>
                     </div>
                 </div>
 
@@ -119,10 +119,23 @@ export const ChartBanner = ({height, lights , title , percentase , total , color
                 style={{ height: percentase > 30 ? '200px' : `${height}px` }}
             >
                 <div className="hidden group-hover:block absolute right-0 top-6 z-10">
-                    <div className={`w-full px-3 py-2  ${lights ? 'bg-gray-500': 'bg-gray-800'} radius-btn-icon-r`}>
-                        <div className="w-full text-white">
-                            <p className={""} style={{fontSize:"13px"}}>{title}</p>
-                            <p className={""} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                    <div className={`w-full px-3 py-2  ${lights ? 'bg-gray-500': 'bg-gray-900'} radius-btn-icon-r`}>
+                        <div className="w-full ">
+                            <p className={"text-13 text-white"} style={{fontSize:"13px"}}>{title}</p>
+                            {percentase > 38 ? (
+                                <p className={"text-13 text-gre-85"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                            ): (percentase >28) ?(
+                                <p className={"text-13 text-gre-70"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                            ): (percentase > 20) ?(
+                                <p className={"text-13 text-gre-50"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+
+                            ): (percentase > 13 ) ?(
+                                <p className={"text-13 text-gre-30"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                            ): (percentase < 8) ?(
+                                <p className={"text-13 text-gre-15"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                            ) :(
+                                <p className={"text-13 text-chart"} style={{fontSize:"13px"}}>{percentase.toFixed(2)}% : Rp.{total.toFixed(2)}</p>
+                            )}
                         </div>
                     </div>
                 </div>

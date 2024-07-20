@@ -10,6 +10,7 @@ import Planning from "./Page/Planning";
 import Schedule from "./Page/Schedule";
 import {useState} from "react";
 import Login from "./Page/Auth/Login";
+import AddNewSchedule from "./Page/AddNewSchedule";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
                       <Routes>
                           <Route path={"/"} element={<Dashboard light={lights} />} />
                           <Route path={"/schedule"} element={<Schedule light={lights} />} />
+                          <Route path={"/create/new/schedule"} element={<AddNewSchedule light={lights} />} />
                           <Route path={"/planning"} element={<Planning />} />
                           <Route path={"/task"} element={<Task />} />
                           <Route path={"/finance"} element={<Finance />} />
