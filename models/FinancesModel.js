@@ -35,6 +35,15 @@ const Finances = {
         });
     },
     
+    findById: async (id) => {
+        const sql = 'select * from finances where id = ?'
+        return new Promise((resolve, reject) => {
+            db.query(sql, [id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result[0]);
+            })
+        })
+    },
 }
 
 module.exports = Finances

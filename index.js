@@ -9,6 +9,7 @@ const User = require('./models/UserModel');
 const routerUser = require('./routes/UserRoutes');
 const routerSchedules = require('./routes/SchedulesRoutes');
 const routerFinances = require('./routes/FinancesRoutes');
+const routerBudgets = require('./routes/BudgetsRoutes');
 
 
 const app = express();
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/users/', routerUser);
 app.use('/api/v1/schedules/', routerSchedules);
 app.use('/api/v1/finances/', routerFinances);
+app.use('/api/v1/budgets/', routerBudgets);
 
 function SelisihRemidner(end_date, end_time) {
     let date = new Date();
