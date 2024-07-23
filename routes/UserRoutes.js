@@ -6,15 +6,101 @@ const Function = require('../models/function');
 require('dotenv').config();
 
 // Register a new user
+
+// Register Email and password
 router.post('/register', async (req, res) => {
     try {
-        const { username, firstname, lastname, email, contact, age, birthday, location, password } = req.body;
-        await User.create({ username, firstname, lastname, email, contact, age, birthday, location, password });
-        res.status(201).send('User registered successfully');
+        // Get body request from user/input
+        const { email } = req.body;
+
+        let checkEmail  = await User.findByEmail({email})
+        if (checkEmail) {
+            return res.status(400).send("Email telah terdaftar")
+        }
+
+        // Generate a token
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1m' });
+
+        // If all validation has passed will create new data of user
+        await User.register({email, token});
+        res.status(201).send('User has registration');
     } catch (error) {
         res.status(400).send(error.message);
     }
 });
+
+// Add Password : Password, confirmPassword
+router.post('/add/password', async (req, res) =>{
+    try{
+        // Get body request from user/input
+        const {token, password, confirmPassword} =  req.body;
+
+        if (!token){
+            return res.status(400).send('Token is required');
+        }
+
+        if (password.length < 8){
+            return res.status(400).send('Password minimal harus memiliki 8 huruf');
+        }else if(confirmPassword.length < 8){
+            return res.status(400).send('Konfirmasi password minimal harus memiliki 8 huruf');
+        }
+
+        // Ensure password match
+        if (password !== confirmPassword){
+            return res.status(400).send('Password tidak sama')
+        }
+
+        await User.addPassword(token, password , confirmPassword)
+        res.status(200).send('Password updated successfully')
+
+    }catch (error){
+        res.status(400).send(error.message);
+    }
+})
+
+// Add information : Username, Firstname, Lastname, Contact
+router.post('/add/information', async (req, res) => {
+    try{
+
+        const {token, username, firstname, lastname, contact} = req.body
+
+        if (!token){
+            return res.status(400).send('Token is required');
+        }
+
+        if (username.length < 3){
+            return res.status(400).send('Username minimal harus memiliki 3 huruf')
+        }else if (contact.length < 7){
+            return res.status(400).send('Nomor telepon minimal harus memiliki 7 huruf')
+        }
+
+        await User.addInformation(token, username, firstname, lastname, contact)
+
+    }catch (error){
+        res.status(400).send(error.message)
+    }
+})
+
+// Add information : Birthday, Location
+router.post('/add/optional/information', async (req , res) =>{
+    try{
+
+        const {token, birthday, location} = req.body;
+
+        if (!token){
+            return res.status(400).send('Token is required');
+        }
+
+        await User.addInformationOptional(token,birthday ,location)
+        res.status(200).send('Addtional updated successfully')
+
+    }catch (error){
+        res.status(400).send(error.message);
+    }
+})
+
+
+
 
 // User Login
 router.post('/login', async (req, res) => {
