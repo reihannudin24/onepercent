@@ -1,14 +1,39 @@
 const Budgets = {
+    create: async (BudgetsData, FinancesData) => {
+        const { title, percent, finance_id, user_id } = BudgetsData;
 
-// Logikannya Gini yan Kita
-// Budget merupakan data untuk User melakukan pembagian/budgeting bedasarkan budget Finance
-// Finance
-    // Saat kita buat si budget
-    // create: async (BudgetsData) => {
-    //     const {title, percent, budget_prediction, finance_id, user_id}
-    // }
+        const sql = 'insert into budgets (title, percent, budged_prediction, finance_id, user_id) values (? , ? , ? , ? , ?)';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [title, percent, (parseInt(percent) / 100) * parseInt(FinancesData.budget), finance_id, user_id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
 
-    // u dapetin dulu semua data dari budget yang memiliki finance id dan user id yang sama
+    remove: async (BudgetsData) => {
+        const { id } = BudgetsData;
+
+        const sql = 'DELETE FROM budgets WHERE id = ?';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [id], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
+
+    update: async (BudgetsData, FinancesData) => {
+        const { id, title, percent } = BudgetsData;
+
+        const sql = 'UPDATE budgets SET title=?, percent=?, budged_prediction=? WHERE id=?';
+        return new Promise((resolve, reject) => {
+            db.query(sql, [id, title, percent, (parseInt(percent) / 100) * parseInt(FinancesData.budget)], (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+    },
 
 }
 
