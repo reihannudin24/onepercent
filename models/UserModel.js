@@ -3,23 +3,41 @@ const db = require('../config/db.js');
 const bcrypt = require('bcrypt');
 
 const User = {
+
     register: async (userData) => {
         const { email, token } = userData;
 
-        const sql = 'insert into users (email, token_remember) values (? , ?)';
+        const sql = 'INSERT INTO users (email, token_remember) VALUES (?, ?)';
         return new Promise((resolve, reject) => {
             db.query(sql, [email, token], (err, result) => {
                 if (err) {
                     // Check for duplicate entry error
-                    if (err.code === 'ER_DUP_ENTRY' && err.sqlMessage.includes('email')){
-                        return reject(new Error('Email telah terdaftar'))
+                    if (err.code === 'ER_DUP_ENTRY' && err.sqlMessage.includes('email')) {
+                        return reject({
+                            data: [],
+                            message: 'Email telah terdaftar',
+                            error: { email: 'Email telah terdaftar' },
+                            status : 401
+
+                        });
                     }
-                    return reject(err)
+                    // Handle other errors
+                    return reject({
+                        data: [],
+                        message: 'An error occurred during registration',
+                        error: { general: err.message },
+                        status : 401
+                    });
                 }
-                resolve(result);
+                resolve({
+                    token: token,
+                    message: 'Registration successful',
+                    status : 201
+                });
             });
         });
     },
+
 
     findByEmail: async (email) => {
         const sql = 'select * from users where email = ?';
@@ -35,19 +53,33 @@ const User = {
         try{
             // Query to find the user by token
             const userQuery = 'SELECT * FROM users WHERE token_remember = ?';
-
             // Check if the token exists
             const user = await new Promise((resolve, reject) => {
                 db.query(userQuery, [token], (err, results) => {
                     if (err) return reject(err);
-                    if (results.length === 0) return reject(new Error('Token tidak valid'));
+                    if (err){
+                        if (results.length === 0) {
+                            return reject({
+                                data: [],
+                                message: 'Token tidak valid',
+                                error: { token : 'Token tidak valid' },
+                                status : 401
+                            });
+                        }
+                    }
                     resolve(results[0]);
                 });
             });
 
             // Check if passwords match
             if (password !== confirmPassword) {
-                throw new Error('Password tidak sama');
+                return new  Error({
+                    data: [],
+                    message: 'Password tidak sama',
+                    error: { password: 'Password tidak sama' },
+                    status : 401
+                });
+                // throw new Error('Password tidak sama');
             }
 
             // Hash the new password
@@ -57,13 +89,33 @@ const User = {
             const updateQuery = 'UPDATE users SET password = ? WHERE token_remember = ?';
             await new Promise((resolve, reject) => {
                 db.query(updateQuery, [hashedPassword, token], (err, result) => {
-                    if (err) return reject(err);
+
+                    if (err){
+                        return reject({
+                            data: [],
+                            message: 'Password gagal diperbarui',
+                            error: { password: 'Password gagal diperbarui' },
+                            status : 401
+                        });
+                    }
                     resolve(result);
                 });
             });
 
+            return {
+                token: token,
+                message: 'Password berhasil diperbarui',
+                status: 201
+            };
+
         }catch (error){
-            throw new Error(error.message);
+            // Handle errors and throw a new error with a standardized structure
+            throw {
+                data: [],
+                message: error.message || 'An unknown error occurred',
+                error: { general: error.message || 'An unknown error occurred' },
+                status: 500
+            };
         }
     },
 

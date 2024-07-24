@@ -13,19 +13,39 @@ router.post('/register', async (req, res) => {
         // Get body request from user/input
         const { email } = req.body;
 
-        let checkEmail  = await User.findByEmail({email})
+        // Check if email already exists
+        let checkEmail = await User.findByEmail({ email });
         if (checkEmail) {
-            return res.status(400).send("Email telah terdaftar")
+            return res.status(400).json({
+                data: [],
+                message: 'Registration failed',
+                code : 0,
+                error: { email: 'Email telah terdaftar' }
+            });
         }
 
         // Generate a token
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1m' });
 
-        // If all validation has passed will create new data of user
-        await User.register({email, token});
-        res.status(201).send('User has registration');
+        // Create new user
+        const result = await User.register({ email, token });
+
+        res.status(201).json({
+            data: result, // Use the result of the registration
+            message: 'Registration successful',
+            code : 1,
+            error: {},
+        });
     } catch (error) {
-        res.status(400).send(error.message);
+        console.error('Error during registration:', error); // Log the error
+
+        // Return a simplified error response
+        res.status(400).json({
+            data: [],
+            message: 'Registration failed',
+            code : 0,
+            error: { message: error.message || 'An unknown error occurred' }
+        });
     }
 });
 
@@ -40,23 +60,50 @@ router.post('/add/password', async (req, res) =>{
         }
 
         if (password.length < 8){
-            return res.status(400).send('Password minimal harus memiliki 8 huruf');
+            return res.status(401).json({
+                data: [],
+                message: 'Add Password failed',
+                code : 0,
+                error: { password: 'Password minimal harus memiliki 8 huruf' }
+            });
         }else if(confirmPassword.length < 8){
-            return res.status(400).send('Konfirmasi password minimal harus memiliki 8 huruf');
+            return res.status(401).json({
+                data: [],
+                message: 'Add Password failed',
+                code : 0,
+                error: { confirm_password: 'Konfirmasi password minimal harus memiliki 8 huruf' }
+            });
         }
 
         // Ensure password match
         if (password !== confirmPassword){
-            return res.status(400).send('Password tidak sama')
+            return res.status(401).json({
+                data: [],
+                message: 'Add Password failed',
+                code : 0,
+                error: { confirm_password: 'Password tidak sama' }
+            });
         }
 
-        await User.addPassword(token, password , confirmPassword)
-        res.status(200).send('Password updated successfully')
+        const result = await User.addPassword({token, password , confirmPassword})
+        res.status(201).json({
+            data: result, // Use the result of the registration
+            message: 'Add password successfully',
+            code : 1,
+            error: {},
+        });
 
     }catch (error){
-        res.status(400).send(error.message);
+
+        res.status(400).json({
+            data: [],
+            message: 'Add Password failed',
+            code : 0,
+            error: { message: error.message || 'An unknown error occurred' }
+        });
     }
 })
+
 
 // Add information : Username, Firstname, Lastname, Contact
 router.post('/add/information', async (req, res) => {
